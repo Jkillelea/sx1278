@@ -14,12 +14,12 @@
 #define SX_REG_PA_CONFIG 0x09
 #define SX_REG_OCP 0x0B
 
-typedef struct SX1278_Register {
+typedef struct SX1278_Register
+{
     char *description;
     uint8_t addr;
     uint8_t por_default;
     uint8_t fsk_default;
-    uint8_t _padding;
 } SX1278_Register;
 
 #define REGISTER(address, name) const SX1278_Register (name) = {.addr = (address), .description = "", .por_default = 0, .fsk_default = 0}
@@ -41,45 +41,37 @@ REGISTER(0x0B, RegOcp        ); // Over Current Protection control. Default: 0x2
 REGISTER(0x0C, RegLna        ); // LNA settings. Default: 0x20
 REGISTER(0x0D, RegRxConfig   ); // AFC, AGC, ctrl. Not used for LoRa. Default: 0x08
 REGISTER(0x0D, RegFifoAddrPtr); // FIFO SPI pointer. LoRa only. Default: 0x0E
+REGISTER(0x0E, RegRssiConfig );
+REGISTER(0x0E, RegFifoTxBaseAddr);
+REGISTER(0x0F, RegRssiCollision);
+REGISTER(0x0F, RegFifoRxBaseAddr);
+REGISTER(0x10, RegRssiThreshFifoRxCurrentAddr);
+REGISTER(0x10, RegFifoxRxCurrentAddr);
+REGISTER(0x11, RegRssiValue); // RSSI value in dBm
+REGISTER(0x11, RegIrqFlagsMask); // Optional IRQ flag mask
+REGISTER(0x12, RegRxBw); // Channel Filter BW Control
+REGISTER(0x12, RegIrqFlags); // IRQ flags
+REGISTER(0x13, RegAfcBw); // AFC Channel Filter BW
+REGISTER(0x13, RegRxNbBytes); // Number of received bytes
+REGISTER(0x14, RegOokPeak); // Default: 0x28, OOK demodulator
+REGISTER(0x14, RegRxHeaderCnt);
+REGISTER(0x15, RegOokFix); // Fixed threshold of the OOK demod
+REGISTER(0x15, RegRxHeaderCntValueLsb); // Number of valid headers received
+REGISTER(0x16, RegOokAvg); // Average of the OOK demod
+REGISTER(0x16, RegRxPacketCntValueMsb); // Number of valid packets received
+REGISTER(0x17, RegRxPacketCntValueLsb); // Number of valid packets received
+REGISTER(0x17, Reserved17);
+REGISTER(0x18, Reserved18); // Reserved
+REGISTER(0x18, RegModemStat); // 0x32 Live LoRaTM modem status
 
-0x0E RegRssiConfig
-0x0E RegFifoTxBaseAddr
-0x0F RegRssiCollision
-0x10 RegRssiThreshFifoRxCurrentAddr
-0x11 RegRssiValue RegAfcBwRegIrqFlagsMask
-RegFifoRxBa-
-seAddr
 0x02 RSSI Start Tx data
 0x0A RSSI Collision detectorStart Rx data
-0xFF RSSI Threshold controlStart address of last
-packet received
-0x15
-0x0B RSSI value in dBm
-Channel Filter BW Control
-AFC Channel Filter BWOptional IRQ flag mask
-IRQ flags
-Number of received bytes
-0x12
-0x13
-RegRxBw
-RegIrqFlags
-RegRxNbBytes 0x14 RegOokPeakRegRxHeaderCnt
-ValueMsb 0x28 OOK demodulator
-0x15 RegOokFixRegRxHeaderCnt
-ValueLsb 0x0C Threshold of the OOK demod
-0x16 RegOokAvgRegRxPacketCnt
-ValueMsb 0x12 Average of the OOK demod
-0x17 Reserved17RegRxPacketCnt
+0xFF RSSI Threshold controlStart address of last packet received
+0x0C Threshold of the OOK demod
+ValueMsb 0x12
 ValueLsb 0x47 -
-0x18 Reserved18RegModemStat 0x32-
 0x19 Reserved19RegPktSnrValue 0x3E-
 0x1A RegAfcFeiRegPktRssiValue 0x00 AFC and FEI control
-Number of valid headers
-received
-Number of valid packets
-received
-Live LoRaTM modem
-status
 Espimation of last packet
 SNR
 RSSI of last packet
